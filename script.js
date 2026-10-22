@@ -52,6 +52,15 @@ document.querySelectorAll(".thumb").forEach((thumb) => {
   });
 });
 
+// ----- Відео: вантажиться і грає лише тоді, коли його видно на екрані -----
+const promoVideo = document.getElementById("promoVideo");
+if (promoVideo && "IntersectionObserver" in window) {
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) promoVideo.play().catch(() => {});
+    else promoVideo.pause();
+  }, { threshold: 0.4 }).observe(promoVideo);
+}
+
 // ----- Відкриття / закриття вікна -----
 function openModal() {
   form.hidden = false;
